@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #0f0f0f;
+    color: white;
+    text-align: center;
+}
+
+.page {
+    display: none;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.active { display: flex; }
+
+button {
+    padding: 12px 25px;
+    margin-top: 15px;
+    border: none;
+    background: #ff4d6d;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+input {
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.chat {
+    background: #1a1a1a;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.ghost {
+    font-size: 60px;
+    animation: float 2s infinite alternate;
+}
+
+@keyframes float {
+    from { transform: translateY(0); }
+    to { transform: translateY(-20px); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<div class="page active" id="p1">
+    <div class="chat">
+        <p>👨 Govardhan: Hey...</p>
+        <p>👩 Namya: Hmm?</p>
+        <p>👨 Govardhan: Let’s go for a walk…</p>
+    </div>
+    <button onclick="go(2)">Next →</button>
+</div>
+
+<!-- GHOST -->
+<div class="page" id="p2">
+    
+    <video id="ghostVideo" width="300" autoplay>
+        <source src="apology/Sequence 01_1.mp4" type="video/mp4">
+    </video>
+
+    <p>"Solve the challenges if you want him back..."</p>
+
+    <button onclick="go(3)">Start Challenge</button>
+
+</div>
+
+<!-- MATH LEVEL -->
+<div class="page" id="p3">
+    <h2>🔢 Math Lock</h2>
+    <p id="mathQ"></p>
+    <input id="mathAns">
+    <button onclick="checkMath()">Submit</button>
+    <p id="mathRes"></p>
+</div>
+
+<!-- RIDDLE LEVEL -->
+<div class="page" id="p4">
+    <h2>🧠 Riddles</h2>
+    <p id="ridQ"></p>
+    <input id="ridAns">
+    <button onclick="checkRid()">Submit</button>
+    <p id="ridRes"></p>
+</div>
+
+<!-- QUIZ -->
+<div class="page" id="p5">
+    <h2>💖 Quiz</h2>
+    <p id="quizQ"></p>
+    <input id="quizAns">
+    <button onclick="checkQuiz()">Submit</button>
+    <p id="quizRes"></p>
+</div>
+
+<!-- FINAL -->
+<div class="page" id="p6">
+
+    <h2>💌 You saved him ❤️</h2>
+
+    <p>You solved everything… just like you always do</p>
+
+    <!-- YOUR MESSAGE HERE -->
+    <p>
+    Hey Namya,<br><br>
+
+    this is your boyfriend, Govardhan.<br><br>
+
+    I am so sorry… sooooooo sorry for everything, janemann.<br>
+    I know this is not what you deserved, and at that time I was too immature.<br>
+    I should have handled things better… instead, I made it worse.<br><br>
+
+    I’m really sorry, chinna !!<br><br>
+
+    Please… will you forgive me?<br><br>
+
+    YOU ARE THE PERFECT ONE re!<br>
+    YOU ARE THE BRAVE ONE!<br><br>
+
+    I LOVE YOU NAMYA ❤️<br><br>
+
+    (As you said, you are those 8 letters that make me complete.)<br><br>
+
+    Sometimes I wonder what I am without my Namya…<br>
+    and the answer is always — nothing.<br><br>
+
+    I deeply apologize, my love :( <br>
+    Please excuse this little boy…<br>
+    and stay the same as you were before…<br><br>
+
+    pleaseeeeeeeeeeeeeeeeeeeeeeeeeeeeee 🥺<br><br>
+
+    [sobs :(]
+    </p>
+
+</div>
+
+<script>
+function go(p){
+    document.querySelectorAll(".page").forEach(e=>e.classList.remove("active"));
+    document.getElementById("p"+p).classList.add("active");
+}
+
+/* ---------------- MATH ---------------- */
+let mathQ = [
+["7 + 3 × 4", "19"],
+["3 → 9 | 4 → 16 | 5 → 25 | 6 → ?", "36"],
+["_ + 18 = 45", "27"],
+["Square side = 6, area?", "36"],
+["2, 4, 8, 16, ?", "32"]
+];
+
+let mi = 0;
+
+function loadMath(){
+    document.getElementById("mathQ").innerText = mathQ[mi][0];
+}
+loadMath();
+
+function checkMath(){
+    let v = document.getElementById("mathAns").value;
+    if(v == mathQ[mi][1]){
+        mi++;
+        document.getElementById("mathAns").value="";
+        if(mi < mathQ.length){
+            loadMath();
+        } else {
+            go(4);
+            loadRid();
+        }
+    } else {
+        document.getElementById("mathRes").innerText="Wrong 😢";
+    }
+}
+
+/* ---------------- RIDDLE ---------------- */
+let ridQ = [
+["I have hands but no arms", "clock"],
+["Break before use", "egg"],
+["Tall when young, short when old", "candle"],
+["One eye but can't see", "needle"],
+["Gets wetter while drying", "towel"]
+];
+
+let ri = 0;
+
+function loadRid(){
+    document.getElementById("ridQ").innerText = ridQ[ri][0];
+}
+
+function checkRid(){
+    let v = document.getElementById("ridAns").value.toLowerCase();
+    if(v == ridQ[ri][1]){
+        ri++;
+        document.getElementById("ridAns").value="";
+        if(ri < ridQ.length){
+            loadRid();
+        } else {
+            go(5);
+            loadQuiz();
+        }
+    } else {
+        document.getElementById("ridRes").innerText="Try again 😢";
+    }
+}
+
+/* ---------------- QUIZ ---------------- */
+let quizQ = [
+["Fav meal?", "fried rice"],
+["Fav thing to watch while eating?", "saas bhi kabhi bahu thi"],
+["Days since dating?", "311"]
+];
+
+let qi = 0;
+
+function loadQuiz(){
+    document.getElementById("quizQ").innerText = quizQ[qi][0];
+}
+
+function checkQuiz(){
+    let v = document.getElementById("quizAns").value.toLowerCase();
+
+    // special case for meal (2 answers)
+    if(qi == 0 && (v=="fried rice" || v=="gobi")){
+        qi++;
+    }
+    else if(v == quizQ[qi][1]){
+        qi++;
+    } else {
+        document.getElementById("quizRes").innerText="Wrong 😢";
+        return;
+    }
+
+    document.getElementById("quizAns").value="";
+
+    if(qi < quizQ.length){
+        loadQuiz();
+    } else {
+        go(6);
+    }
+}
+</script>
+
+</body>
+</html>
